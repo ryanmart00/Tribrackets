@@ -1,5 +1,6 @@
 #!/bin/python3
 from tribracket_conditions import *
+from fields import isprime
 
 if __name__ == "__main__":
     for n in count(3):

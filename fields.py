@@ -1,4 +1,4 @@
-from math import sqrt
+from math import isqrt
 from math import gcd
 from itertools import product
 
@@ -28,6 +28,30 @@ class _M_Inf:
         return cls
 
 M_Inf = _M_Inf()
+
+def eratosthenes(n):
+    seive = [True for i in range(0, n+1)]
+    seive[0] = False
+    seive[1] = False
+    for i in range(isqrt(n)):
+        if seive[i]:
+            for j in range(i*i, n+1, i):
+                seive[j] = False
+    return [n for (n, p) in enumerate(seive) if p]
+
+
+
+def isprime(x):
+    if not isinstance(x, int): 
+        raise TypeError("%s is not an integer!" % x)
+    x = abs(x)
+    if x == 1:
+        return False
+    for p in eratosthenes(isqrt(x)):
+        if x % p == 0:
+            return False
+    return True
+
 
 
 """
@@ -117,6 +141,9 @@ def Z(n):
         @property
         def val(self):
             return self[0]
+
+        def __hash__(self):
+            return hash(self.val)
 
         def __add__(self, other):
             if isinstance(other, int):
